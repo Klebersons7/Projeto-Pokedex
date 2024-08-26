@@ -1,0 +1,56 @@
+
+
+.imagem-menu{
+    width: 30px;
+   
+}
+
+ul{
+    list-style: none;
+    top: 70px;
+    width: 100%;
+    position: absolute;
+}
+
+input[type="checkbox"]
+{
+    display: none;
+}
+
+input[type="checkbox"]:checked ~ nav{
+    transform: translateX(350px);
+}
+
+
+
+.nav{
+    background-color: rgba(16,16,16,.5);
+    width: 350px;
+    height: 100%;
+    left: -350px;
+    position: relative;
+    transition: all .5s;
+
+}
+a{
+    display: flex;
+    padding: 20px 5px;
+    color: white;
+    flex-direction: column;
+    text-decoration: none;
+    
+    
+}
+
+a:hover{
+    background-color: rgb(176,224,230);
+    color: black
+}
+
+label{
+    padding: 15px;
+    position: absolute;
+    z-index: 1;
+    
+}
+

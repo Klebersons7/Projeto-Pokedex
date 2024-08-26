@@ -9,14 +9,14 @@ body {
     background-color: #d6d6d6;
     margin: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
 }
 
 #pokedex {
     width: 22rem;
     height: 35rem;
+    margin-left: 125px;
+    margin-top: 15px;
     background-color: rgb(116, 203,  72);
     border-radius: 8px;
     padding: 0.3rem;
@@ -144,3 +144,7 @@ body {
 #base-stats {
     transition: color 0.5s ease-in-out;
 }
+
+
+
+

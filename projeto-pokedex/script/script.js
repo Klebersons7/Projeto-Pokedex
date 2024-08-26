@@ -1,3 +1,4 @@
+// puxando ids e classes do html para utilização
 const search       = document.querySelector('#search');
 const number       = document.querySelector('#number');
 const pokemonImage = document.querySelector('#pokemon-image');
@@ -9,6 +10,7 @@ const statDesc     = document.querySelectorAll('.stat-desc');
 const baseStats    = document.querySelector('#base-stats');
 const pokedex      = document.querySelector('#pokedex');
 
+// cores dos tipos
 const typeColors = {
     "rock":     [182, 158,  49],
     "ghost":    [112,  85, 155],
@@ -31,7 +33,7 @@ const typeColors = {
 }
 
 const fetchApi = async (pkmnName) => {
-    // Joining Pokémon names that has more than one word
+    // Juntando os nomes dos Pokémon que possuem mais de uma palavra
     pkmnNameApi = pkmnName.split(' ').join('-');
 
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pkmnNameApi);
@@ -47,27 +49,25 @@ const fetchApi = async (pkmnName) => {
 search.addEventListener('change', async (event) => {
     const pkmnData  = await fetchApi(event.target.value);
 
-    // Validation when Pokémon does not exist
+// Aviso quando o Pokémon não é encontrado
     if (!pkmnData) {
-        alert('Pokémon does not exist.');
+        alert('Pokémon não encontrado!');
         return;
     }
 
-    // Main Pokémon color, in order to change UI theme
+
+// Cor principal do Pokémon, para alterar o tema da pokedex
     const mainColor = typeColors[pkmnData.types[0].type.name];
     baseStats.style.color         = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
     pokedex.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
 
-    // For debugging - Will be removed later on
-    console.log(pkmnData);
-
-    // Sets pokemon # at the top of the page
+// Coloca o pokémon # no topo da página
     number.innerHTML = '#' + pkmnData.id.toString().padStart(3, '0');
 
-    // Sets pokemon image
+    // Define a imagem do pokemon 
     pokemonImage.src = pkmnData.sprites.other.home.front_default;
 
-    // Updates "Type" bubbles
+    // Atualiza o tipo do pokemon
     types.innerHTML = '';
 
     pkmnData.types.forEach((t) => {
@@ -81,7 +81,7 @@ search.addEventListener('change', async (event) => {
         types.appendChild(newType);
     });
 
-    // Updates Stats and Stats bars
+   //Atualiza os Stats e a Barra de Stat
     pkmnData.stats.forEach((s, i) => {
         statNumber[i].innerHTML = s.base_stat.toString().padStart(3, '0');
         barInner[i].style.width = `${s.base_stat}%`;
