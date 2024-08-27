@@ -1,7 +1,7 @@
-
+// requisição da div do html para tratar aqui
 const pokeContainer = document.querySelector("#pokeContainer");
 const pokemonCount = 493;
-
+// cores do tipos
 const colors = {
   fire: '#FF8C00',
   grass: '#90EE90',
@@ -24,12 +24,14 @@ const colors = {
 
 const mainTypes = Object.keys(colors);
 
+// contar os pokemons a aparecer em tela
 const fetchPokemons = async () => {
   for (let i = 1; i <= pokemonCount; i++) {
     await getPokemons(i);
   }
 };
 
+// buscar os pokemons na api e adcionar em um json
 const getPokemons = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
   const resp = await fetch(url);
@@ -37,6 +39,7 @@ const getPokemons = async (id) => {
   createPokemonCard(data);
 };
 
+// criar um card pokemon 
 const createPokemonCard = (poke) => {
   const card = document.createElement('div');
   card.classList.add("pokemon");
