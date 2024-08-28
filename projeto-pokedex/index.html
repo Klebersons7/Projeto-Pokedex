@@ -27,18 +27,21 @@
     <div id="pokedex">
         <div id="top">
             <div id="top-bar">
-                <input
-                    type="text"
-                    id="search"
-                    value="Bulbasaur" 
-                />
+                <span id="namePkm">Bulbasaur</span>
                 <span id="number">#001</span>
             </div>
-            <div id="poke-image-placeholder">
+        <div id="poke-image-placeholder">
+            <button id="b-seta-esquerda">
+                <img src="img/seta-esquerda.png" class="setas" alt="seta-esquerda">
+            </button>
                 <img src="img/bulbasaur.png" id="pokemon-image" alt="pokemon-image" />
-            </div>
+            <button id="b-seta-direita">
+                <img src="img/seta-direita.png" class="setas" alt="seta-direita">
+            </button>
+        </div>
         <div class="botoes">
             <button id="voltarBotao" alt="botaoVoltar">Voltar</button>
+            <input type="text" id="search" placeholder="Pesquisar..." spellcheck="false" autocomplete="off"/>
             <button id="proximoBotao" alt="botaoProximo">Próximo</button>
         </div>
         </div>

@@ -9,8 +9,10 @@ const barOuter     = document.querySelectorAll('.bar-outer');
 const statDesc     = document.querySelectorAll('.stat-desc');
 const baseStats    = document.querySelector('#base-stats');
 const pokedex      = document.querySelector('#pokedex');
-const voltarBotao  = document.querySelector('#voltarBotao');
-const proximoBotao  = document.querySelector('#proximoBotao');
+const vBotao       = document.querySelector('#voltarBotao');
+const pBotao       = document.querySelector('#proximoBotao');
+const namePkm      = document.querySelector('#namePkm');
+
 
 // cores dos tipos
 const typeColors = {
@@ -48,6 +50,7 @@ const fetchApi = async (pkmnName) => {
     return false;
 }
 
+
 search.addEventListener('change', async (event) => {
     const pkmnData  = await fetchApi(event.target.value);
 
@@ -62,11 +65,13 @@ search.addEventListener('change', async (event) => {
     const mainColor = typeColors[pkmnData.types[0].type.name];
     baseStats.style.color         = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
     pokedex.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    voltarBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    proximoBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+    vBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+    pBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+    search.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
 
 // Coloca o pokémon # no topo da página
     number.innerHTML = '#' + pkmnData.id.toString().padStart(3, '0');
+    namePkm.innerHTML = pkmnData.name.toString()
 
     // Define a imagem do pokemon 
     pokemonImage.src = pkmnData.sprites.other.home.front_default;
@@ -94,3 +99,23 @@ search.addEventListener('change', async (event) => {
         statDesc[i].style.color           = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
     });
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('#search');
+
+    // Função para limpar o texto placeholder quando o campo está focado
+    searchInput.addEventListener('focus', () => {
+        if (searchInput.placeholder) {
+            searchInput.placeholder = '';
+        }
+    });
+
+    // Função para restaurar o texto placeholder se o campo estiver vazio
+    searchInput.addEventListener('blur', () => {
+        if (!searchInput.value) {
+            searchInput.placeholder = 'Pesquisar...';
+        }
+    });
+});
+
+
+

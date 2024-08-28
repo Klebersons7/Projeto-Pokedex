@@ -15,7 +15,7 @@ body {
 
 #pokedex {
     width: 68%;
-    height: 80%;
+    height: 90%;
     margin-left: 200px;
     margin-top: 30px;
     background-color: rgb(116, 203,  72);
@@ -30,7 +30,7 @@ body {
     padding: 0.5rem;
     background: url('../img/pokeball.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: center;
 }
 
 #top-bar {
@@ -38,30 +38,72 @@ body {
     justify-content: space-between;
     color: white;
     padding: 0 1.2rem;
+    font-weight: bold;
+    font-size: 20px;
 }
+
+
 
 #search {
     color: white;
-    background: none;
+    background-color: rgb(116, 203,  72);
     border: none;
+    border-radius: 8px;
     font-size: 1.2rem;
     font-weight: bold;
+    margin: 0px 5px;
     width: 60%;
     text-transform: capitalize;
+    margin: 0px 10px;
 }
 
 #search:focus {
     outline: none;
 }
+#search::placeholder{
+    color: white;
+}
 
 #poke-image-placeholder {
     display: flex;
     justify-content: center;
+    margin: 0px 50px;
+
 }
+.setas{ 
+    display: flex;
+    width: 15px;
+    height: 15px;
+    
+}
+#b-seta-esquerda{
+    width: 5px;
+    height: 50%;
+    transform: translateY(80px);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+#b-seta-direita{
+    width: 5px;
+    height: 50%;
+    transform: translateY(80px);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
 
 .botoes{
     display: flex;
     justify-content: space-between;
+    transform: translateY(15px);
 }
 
 #voltarBotao{
@@ -71,7 +113,8 @@ body {
     border-radius: 8px; 
     padding: 5px 7px; 
     margin-left: 10px;
-    font-size: 16px; 
+    font-size: 1.2rem;
+    font-weight: bold; 
     cursor: pointer; 
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -82,7 +125,8 @@ body {
     border-radius: 8px; 
     padding: 5px 7px;
     margin-right: 10px; 
-    font-size: 16px; 
+    font-size: 1.2rem;
+    font-weight: bold; 
     cursor: pointer; 
     transition: background-color 0.3s, transform 0.2s;
 
@@ -107,7 +151,7 @@ body {
 #pokemon-image {
     width: 200px;
     height: 200px;
-    transform: translateY(1rem);
+    transform: translateY(-1rem);
 }
 
 #data {
