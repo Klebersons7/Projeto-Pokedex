@@ -9,6 +9,8 @@ const barOuter     = document.querySelectorAll('.bar-outer');
 const statDesc     = document.querySelectorAll('.stat-desc');
 const baseStats    = document.querySelector('#base-stats');
 const pokedex      = document.querySelector('#pokedex');
+const voltarBotao  = document.querySelector('#voltarBotao');
+const proximoBotao  = document.querySelector('#proximoBotao');
 
 // cores dos tipos
 const typeColors = {
@@ -60,6 +62,8 @@ search.addEventListener('change', async (event) => {
     const mainColor = typeColors[pkmnData.types[0].type.name];
     baseStats.style.color         = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
     pokedex.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+    voltarBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+    proximoBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
 
 // Coloca o pokémon # no topo da página
     number.innerHTML = '#' + pkmnData.id.toString().padStart(3, '0');
