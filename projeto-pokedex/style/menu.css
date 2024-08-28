@@ -25,16 +25,16 @@ input[type="checkbox"]:checked ~ nav{
 
 .nav{
     background-color: rgba(16,16,16,.5);
-    width: 250px;
-    height: 100%;
-    left: -350px;
+    width: 15rem;
+    height: 41rem;
+    left: -22rem;
     position: relative;
     transition: all .5s;
 
 }
 a{
     display: flex;
-    padding: 20px 5px;
+    padding: 10px 5px;
     color: white;
     flex-direction: column;
     text-decoration: none;
@@ -54,12 +54,8 @@ label{
     
 }
 
-@media  (max-width: 830px){
-    .nav{
-        width: 200px;
-        padding: 0;
-        margin: 0;
-    }
+@media  (max-width: 850px){
+    
 }
 @media  (max-width: 620px){
     .nav{
