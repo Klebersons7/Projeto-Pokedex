@@ -15,8 +15,9 @@ body {
 #pokedex {
     width: 32rem;
     height: 36rem;
-    margin-left: 200px;
-    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 400px;
     background-color: rgb(116, 203,  72);
     border-radius: 8px;
     padding: 0.3rem;
@@ -235,6 +236,12 @@ body {
     transition: color 0.5s ease-in-out;
 }
 
+a {
+    color: black;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+}
 
 
 @media (max-width: 800px) {
