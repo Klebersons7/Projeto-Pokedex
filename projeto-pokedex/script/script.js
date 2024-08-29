@@ -1,3 +1,5 @@
+// elementos requisitados do html para tratamento aqui
+
 const search       = document.querySelector('#search');
 const number       = document.querySelector('#number');
 const pokemonImage = document.querySelector('#pokemon-image');
@@ -14,8 +16,10 @@ const namePkm      = document.querySelector('#namePkm');
 const listLink     = document.querySelector('.listLink');
 const voltarBotao  = document.querySelector('#voltarBotao');
 const proximoBotao = document.querySelector('#proximoBotao');
-const SetaEsquerda = document.querySelector('#SetaEsquerda');
-const SetaDireita  = document.querySelector('#SetaDireita');
+const setaEsquerda = document.querySelector('#SetaEsquerda');
+const setaDireita  = document.querySelector('#SetaDireita');
+
+// cores para a pokedex e seus atributos
 
 const typeColors = {
     "rock":     [182, 158,  49],
@@ -40,6 +44,7 @@ const typeColors = {
 
 let searchPokemon = 1; // Pokémon atual
 
+// requisição da api
 const fetchPokemon = async (pokemon) => {
   const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
@@ -50,6 +55,8 @@ const fetchPokemon = async (pokemon) => {
     return null;
   }
 }
+
+// função para renderizar o pokemon
 
 const renderPokemon = async (pokemonId) => {
     namePkm.innerHTML = 'Loading...'
@@ -132,23 +139,38 @@ proximoBotao.addEventListener('click', async () => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.querySelector('#search');
 
-    // Função para limpar o texto placeholder quando o campo está focado
-    searchInput.addEventListener('focus', () => {
-        if (searchInput.placeholder) {
-            searchInput.placeholder = '';
-        }
-    });
 
-    // Função para restaurar o texto placeholder se o campo estiver vazio
-    searchInput.addEventListener('blur', () => {
-        if (!searchInput.value) {
-            searchInput.placeholder = 'Pesquisar...';
-        }
-    });
+// Função para limpar o texto placeholder quando o campo está focado
+search.addEventListener('focus', () => {
+    if (search.placeholder === 'Pesquisar...') {
+        search.placeholder = '';
+    }
 });
+
+// Função para restaurar o texto placeholder se o campo estiver vazio
+search.addEventListener('blur', () => {
+    if (!search.value) {
+        search.placeholder = 'Pesquisar...';
+    }
+});
+
+// Limpar o placeholder ao pesquisar um Pokémon
+search.addEventListener('change', async (event) => {
+    const pokemon = event.target.value.toLowerCase();
+    const data = await fetchPokemon(pokemon);
+
+    if (data) {
+        renderPokemon(data.id);
+        // Limpar o placeholder ao pesquisar
+        search.placeholder = '';
+    } else {
+        alert('Pokémon não encontrado!');
+        // Restaurar o placeholder se a pesquisa falhar
+        search.placeholder = 'Pesquisar...';
+    }
+});
+
 
 
 // Renderizar Pokémon inicial
