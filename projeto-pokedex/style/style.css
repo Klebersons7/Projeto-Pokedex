@@ -76,7 +76,7 @@ body {
     height: 15px;
     
 }
-#b-seta-esquerda{
+#SetaEsquerda{
     width: 1rem;
     height: 1rem;
     transform: translateY(80px);
@@ -87,7 +87,7 @@ body {
     align-items: center; 
     justify-content: center;
 }
-#b-seta-direita{
+#SetaDireita{
     width: 1rem;
     height: 1rem;
     transform: translateY(80px);
@@ -236,17 +236,39 @@ body {
     transition: color 0.5s ease-in-out;
 }
 
-a {
-    color: black;
-    background: transparent;
-    border: none;
-    text-decoration: none;
+
+.listLink{
+    background-color: rgb(116, 203,  72);  
+    border: none; 
+    color: white; 
+    font-weight: bold;
+    padding: 5px 8px; 
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 12px; 
+    transition: background-color 0.3s, transform 0.3s;;
+}
+.listLink:hover{
+    transform: scale(1.05);
+}
+.listLink:active{
+    transform: scale(0.95);
 }
 
-
-@media (max-width: 800px) {
+@media (max-width: 900px) {
+    body{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     #pokedex{
-        margin: 0;
+     margin: 0;   
 
     }
 }

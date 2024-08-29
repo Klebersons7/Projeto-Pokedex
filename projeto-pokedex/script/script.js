@@ -1,4 +1,3 @@
-// puxando ids e classes do html para utilização
 const search       = document.querySelector('#search');
 const number       = document.querySelector('#number');
 const pokemonImage = document.querySelector('#pokemon-image');
@@ -12,9 +11,12 @@ const pokedex      = document.querySelector('#pokedex');
 const vBotao       = document.querySelector('#voltarBotao');
 const pBotao       = document.querySelector('#proximoBotao');
 const namePkm      = document.querySelector('#namePkm');
+const listLink     = document.querySelector('.listLink');
+const voltarBotao  = document.querySelector('#voltarBotao');
+const proximoBotao = document.querySelector('#proximoBotao');
+const SetaEsquerda = document.querySelector('#SetaEsquerda');
+const SetaDireita  = document.querySelector('#SetaDireita');
 
-
-// cores dos tipos
 const typeColors = {
     "rock":     [182, 158,  49],
     "ghost":    [112,  85, 155],
@@ -36,69 +38,100 @@ const typeColors = {
     "dragon":   [112,  55, 255]
 }
 
-const fetchApi = async (pkmnName) => {
-    // Juntando os nomes dos Pokémon que possuem mais de uma palavra
-    pkmnNameApi = pkmnName.split(' ').join('-');
+let searchPokemon = 1; // Pokémon atual
 
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pkmnNameApi);
-    
-    if (response.status === 200) {
-        const pkmnData = await response.json();
-        return pkmnData;
-    } 
+const fetchPokemon = async (pokemon) => {
+  const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
-    return false;
+  if (APIResponse.status === 200) {
+    const data = await APIResponse.json();
+    return data;
+  } else {
+    return null;
+  }
 }
 
+const renderPokemon = async (pokemonId) => {
+    namePkm.innerHTML = 'Loading...'
+    number.innerHTML = '';
 
-search.addEventListener('change', async (event) => {
-    const pkmnData  = await fetchApi(event.target.value);
+    const data = await fetchPokemon(pokemonId);
 
-// Aviso quando o Pokémon não é encontrado
-    if (!pkmnData) {
-        alert('Pokémon não encontrado!');
-        return;
+    if (data) {
+        pokemonImage.style.display = 'block';
+        namePkm.innerHTML = data.name;
+        number.innerHTML = '#' + data.id.toString().padStart(3, '0');
+        pokemonImage.src = data['sprites'].other.home['front_default'];
+        
+        // Atualizar a variável global de Pokémon atual
+        searchPokemon = data.id;
+
+        // Atualizar as cores baseadas no tipo do Pokémon
+        const mainColor = typeColors[data.types[0].type.name];
+        baseStats.style.color         = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        pokedex.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        vBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        pBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        search.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        listLink.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+
+        // Atualizar os tipos do Pokémon
+        types.innerHTML = '';
+        data.types.forEach((t) => {
+            let newType = document.createElement('span');
+            let color   = typeColors[t.type.name];
+
+            newType.innerHTML = t.type.name;
+            newType.classList.add('type');
+            newType.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`; 
+            types.appendChild(newType);
+        });
+
+        // Atualizar os stats e a barra de stats
+        data.stats.forEach((s, i) => {
+            statNumber[i].innerHTML = s.base_stat.toString().padStart(3, '0');
+            barInner[i].style.width = `${s.base_stat}%`;
+            barInner[i].style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+            barOuter[i].style.backgroundColor = `rgba(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]}, 0.3)`;
+            statDesc[i].style.color = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        });
+
+    } else {
+        pokemonImage.style.display = 'none';
+        namePkm.innerHTML = 'Not found :c';
+        number.innerHTML = '';
     }
+}
 
+// Pesquisa Pokémon ao mudar o campo de busca
+search.addEventListener('change', async (event) => {
+    const pokemon = event.target.value.toLowerCase();
+    const data = await fetchPokemon(pokemon);
 
-// Cor principal do Pokémon, para alterar o tema da pokedex
-    const mainColor = typeColors[pkmnData.types[0].type.name];
-    baseStats.style.color         = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    pokedex.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    vBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    pBotao.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    search.style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-
-// Coloca o pokémon # no topo da página
-    number.innerHTML = '#' + pkmnData.id.toString().padStart(3, '0');
-    namePkm.innerHTML = pkmnData.name.toString()
-
-    // Define a imagem do pokemon 
-    pokemonImage.src = pkmnData.sprites.other.home.front_default;
-
-    // Atualiza o tipo do pokemon
-    types.innerHTML = '';
-
-    pkmnData.types.forEach((t) => {
-        let newType = document.createElement('span');
-        let color   = typeColors[t.type.name];
-
-        newType.innerHTML = t.type.name;
-        newType.classList.add('type');
-        newType.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`; 
-
-        types.appendChild(newType);
-    });
-
-   //Atualiza os Stats e a Barra de Stat
-    pkmnData.stats.forEach((s, i) => {
-        statNumber[i].innerHTML = s.base_stat.toString().padStart(3, '0');
-        barInner[i].style.width = `${s.base_stat}%`;
-        barInner[i].style.backgroundColor = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-        barOuter[i].style.backgroundColor = `rgba(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]}, 0.3)`;
-        statDesc[i].style.color           = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-    });
+    if (data) {
+        renderPokemon(data.id);
+    } else {
+        alert('Pokémon não encontrado!');
+    }
 });
+
+// Navegar para o Pokémon anterior
+voltarBotao.addEventListener('click', () => {
+    if (searchPokemon > 1) {
+        searchPokemon -= 1; 
+        renderPokemon(searchPokemon);
+    }
+});
+
+// Navegar para o próximo Pokémon
+proximoBotao.addEventListener('click', async () => {
+    const data = await fetchPokemon(searchPokemon + 1);
+    if (data) {
+        searchPokemon += 1;
+        renderPokemon(searchPokemon);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('#search');
 
@@ -118,4 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+// Renderizar Pokémon inicial
+renderPokemon(searchPokemon);
