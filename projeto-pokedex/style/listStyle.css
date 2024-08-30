@@ -1,131 +1,150 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400$display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
 }
 
-body{
-    background: linear-gradient(to right,#d4d3dd ,#efefbc);
-    display: flex; 
+body {
+    background: linear-gradient(to right, #d4d3dd, #efefbc);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    min-height: 100vh;
+    position: relative; 
 }
 
-.container{
+
+.header {
+    position: absolute;
+    top: 10px; 
+    width: 100%;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 5px;
+    color: #333; 
+}
+
+.container {
     display: flex;
     width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px; 
 }
 
-.voltar{
-    background-color: #d4d3dd; 
-    border: none; 
-    color: black; 
+.voltar {
+    background-color: #d4d3dd;
+    border: none;
+    color: black;
     font-weight: bold;
-    padding: 10px 16px; 
+    padding: 10px 16px;
     text-align: center;
     letter-spacing: 1px;
-    text-decoration: none; 
-    display: inline-block; 
-    font-size: 16px; 
-    margin: 4px 2px; 
-    cursor: pointer; 
-    border-radius: 12px; 
-    transition: background-color 0.3s, transform 0.3s; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s, transform 0.3s;
+    position: absolute;
+    top: 10px; 
+    left: 10px; 
 }
 
-.voltar:hover{
-    background-color: white;
-    transform: scale(1.05); 
-}
-.voltar:active{
-    background-color: #efefbc;
-    transform: scale(0.98); 
-}
-h1{
-    padding-left: 430px;
-    letter-spacing: 5px;
-
-    
-   
+.voltar:hover {
+    transform: scale(1.05);
 }
 
-.pokeContainer{
+.voltar:active {
+    transform: scale(0.98);
+}
+
+.pokeContainer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0 auto;
     max-width: 1200px;
 }
 
-
-
-.pokemon{
- background-color: #e3c0c0;
- border-radius: 10px;
- box-shadow: 0 3px 15px rgba(100, 100, 100,0.5);
- margin: 10px;
- padding: 20px;
- text-align: center;
+.pokemon {
+    background-color: #e3c0c0;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
 }
 
-.pokemon:hover{
-    transform: scale(1.05); 
+.pokemon:hover {
+    transform: scale(1.05);
 }
 
-.imagemContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255,0.6);
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;   
+.imagemContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
 }
 
-.imagemContainer img{
-max-width: 90%;
-
+.imagemContainer img {
+    max-width: 90%;
 }
 
-.info{
-  margin-top: 20px;
+.info {
+    margin-top: 20px;
 }
 
-.number{
-background-color: rgba(0, 0, 0,0.15);
-padding: 2px 10px;
-border-radius: 10px;
-font-size: 0.6rem;
+.number {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.6rem;
 }
-.name{
- 
-  margin: 15px 0 7px;
-  letter-spacing: 1.5px;
 
+.name {
+    margin: 15px 0 7px;
+    letter-spacing: 1.5px;
 }
 
 
-@media (max-width: 980px){
-    h1{
-  
-        padding-left: 300px;
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.5rem; 
+    }
+    .container {
+        padding-top: 50px; 
+    }
+    .voltar {
+        font-size: 14px; 
+        padding: 8px 14px;
+    }
+    .pokemon {
+        width: 100%;
+        max-width: 300px; 
     }
 }
 
-@media (max-width: 730px){
-    h1{
-  
-        padding-left: 150px;
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.2rem;
     }
-}
-@media (max-width: 500px){
-    h1{
-  
-        padding-left: 50px;
+    .voltar {
+        font-size: 12px; 
+        padding: 6px 12px;
     }
 }

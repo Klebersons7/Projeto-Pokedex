@@ -103,10 +103,6 @@ const renderPokemon = async (pokemonId) => {
             statDesc[i].style.color = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
         });
 
-    } else {
-        pokemonImage.style.display = 'none';
-        namePkm.innerHTML = 'Not found :c';
-        number.innerHTML = '';
     }
 }
 
